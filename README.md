@@ -1,4 +1,6 @@
+# personal-frontend
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple personal web app with react + Ant design
 
 ## Available Scripts
 
