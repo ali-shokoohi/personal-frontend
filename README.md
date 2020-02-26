@@ -6,6 +6,11 @@ A simple personal web app with react + Ant design
 
 In the project directory, you can run:
 
+### `npm install`
+
+Download and install necessary libraries.<br />
+Such as: antd, axios, react, ...
+
 ### `npm start`
 
 Runs the app in the development mode.<br />
