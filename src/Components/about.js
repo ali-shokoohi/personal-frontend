@@ -1,25 +1,40 @@
 import React from 'react';
 import { Typography, Card, Avatar } from 'antd';
+import API from '../api';
 
 const { Meta } = Card;
 
-const { Paragraph, Title } = Typography;
+const { Paragraph, Title, Text } = Typography;
 
 class About extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            lines: [],
         }
     }
 
     componentDidMount(){
+        let user = this.props.user;
+        if (user.about){
+            this.setState({
+                lines: user.about.split('\n')
+            })
+        } else {
+            API.get('user')
+            .then(result => {
+                user = result.data[0]
+                this.setState({
+                    lines: user.about.split('\n')
+                })
+            });
+        }
     }
 
     render(){
-        const user = this.props.user;
         return(
             <Card
-                style={{marginTop: 50}}
+                style={{marginTop: 25, marginBottom: 25}}
                 cover={
                 <img
                     alt="Ali-Shokoohi"
@@ -34,7 +49,18 @@ class About extends React.Component{
                         درباره من
                     </Title>
                 }
-                description={<Paragraph>{user.about}</Paragraph>}
+                description={
+                    <Paragraph>
+                        {this.state.lines.map(line => 
+                            <div>
+                                <Text>
+                                    {line}
+                                </Text>
+                                <br />
+                            </div>
+                        )}
+                    </Paragraph>
+                }
                 />
             </Card>
         )

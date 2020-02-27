@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, Avatar, Card, Icon } from 'antd';
+import frans from 'franc';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -17,9 +18,6 @@ class Post extends React.Component{
             comments_count: 0,
         }
     }
-    componentDidMount(){
-    }
-
     likeHandler = () => {
         this.state.isLiked ?
             this.setState({
@@ -58,6 +56,9 @@ class Post extends React.Component{
             comments_count: this.state.comments_count+1,
         })
     }
+    componentDidMount(){
+        console.log(frans('منبع:', {minLength: 2}));
+    }
     render(){
         const {isLiked, isDisliked, isCommented, likes_count, dislikes_count, comments_count} = this.state;
         const post = this.props.post;
@@ -87,17 +88,67 @@ class Post extends React.Component{
                             {likes_count>0 && (<span>{likes_count}</span>)}
                         </div>,
                     ]}
-                    style={{marginTop: 25}}
+                    style={{marginTop: 25, marginBottom: 25}}
                 >
                 <Meta
                     avatar={<Avatar src="https://shokoohi.dev/wp-content/uploads/2020/02/ali-shokoohi-avatar.jpg" />}
                     description={
-                        <Paragraph ellipsis={{ rows: lines.length+2, expandable: true }}>
-                            {lines.map(line =>
-                                <div>
-                                    <Text>{line}</Text>
-                                    <br />
-                                </div>
+                        <Paragraph>
+                            {lines.map(line => 
+                                frans(line, {minLength: 2}) === 'fas' 
+                                || frans(line, {minLength: 2}) === 'arb'
+                                || frans(line, {minLength: 2}) === 'urd'
+                                || frans(line, {minLength: 2}) === 'zlm'
+                                || frans(line, {minLength: 2}) === 'skr'
+                                || frans(line, {minLength: 2}) === 'pbu'
+                                || frans(line, {minLength: 2}) === 'uig' ?
+                                    <div>
+                                        <Text>
+                                            {
+                                                line.split(' ').map(word =>
+                                                    frans(word, {minLength: 2}) === 'fas' 
+                                                    || frans(word, {minLength: 2}) === 'arb'
+                                                    || frans(word, {minLength: 2}) === 'urd'
+                                                    || frans(word, {minLength: 2}) === 'zlm'
+                                                    || frans(word, {minLength: 2}) === 'skr'
+                                                    || frans(word, {minLength: 2}) === 'pbu'
+                                                    || frans(word, {minLength: 2}) === 'uig' ?
+                                                        <span>
+                                                            {word}&nbsp;
+                                                        </span>
+                                                    :
+                                                        <span dir='ltr'>
+                                                            {word}&nbsp;
+                                                        </span>
+                                                )
+                                            }
+                                        </Text>
+                                        <br />
+                                    </div>
+                                :
+                                    <div dir='ltr'>
+                                        <Text>
+                                            {
+                                                line.split(' ').map(word =>
+                                                    frans(word, {minLength: 2}) === 'fas' 
+                                                    || frans(word, {minLength: 2}) === 'arb'
+                                                    || frans(word, {minLength: 2}) === 'urd'
+                                                    || frans(word, {minLength: 2}) === 'zlm'
+                                                    || frans(word, {minLength: 2}) === 'skr'
+                                                    || frans(word, {minLength: 2}) === 'pbu'
+                                                    || frans(word, {minLength: 2}) === 'uig' ?
+                                                        <span dir='rtl'>
+                                                            {word}&nbsp;
+                                                        </span>
+                                                    :
+                                                        <span dir='ltr'>
+                                                            {word}&nbsp;
+                                                        </span>
+                                                )
+                                            }
+                                        </Text>
+                                        <br />
+                                    </div>
                             )}
                         </Paragraph>
                     }

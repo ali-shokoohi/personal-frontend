@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Menu, Icon, Spin } from 'antd';
+import { Row, Col, Menu, Icon, Spin, Typography } from 'antd';
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,7 +7,6 @@ import {
   Link
 } from "react-router-dom";
 import Header from './Components/header';
-import Sider from './Components/sider';
 import Post from './Components/post';
 import About from './Components/about';
 import './App.css';
@@ -16,6 +15,8 @@ import API from './api';
 import { BackTop } from 'antd';
 
 const { SubMenu } = Menu;
+
+const { Text } = Typography;
 
 const routes = [
   {
@@ -164,8 +165,11 @@ class App extends React.Component {
                         </Route>
                       )
                     }
-                    <Route path="/about">
+                    <Route exact path="/about">
                       <About user={this.state.user} />
+                    </Route>
+                    <Route exact path="/test">
+                      <Text style={{backgroundColor: 'red'}}>{'         Hello  s'}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'  s'}</Text>
                     </Route>
                   </Col>
                 </Row>
