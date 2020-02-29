@@ -44,7 +44,7 @@ class Post extends React.Component{
                                                 </span>
                                             :
                                                 <span dir='ltr'>
-                                                    {word}&nbsp;
+                                                    &nbsp;{word}
                                                 </span>
                                         )
                                     }
@@ -68,7 +68,7 @@ class Post extends React.Component{
                                                 </span>
                                             :
                                                 <span dir='ltr'>
-                                                    {word}&nbsp;
+                                                    &nbsp;{word}
                                                 </span>
                                         )
                                     }
