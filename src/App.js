@@ -135,7 +135,7 @@ class App extends React.Component {
               />
               <Switch>
                 <Row>
-                  <Col xs={18} sm={18} md={18} lg={18} xl={18} offset={3}>
+                  <Col xs={20} sm={20} md={20} lg={20} xl={20} offset={2}>
                     <Route exact path="/">
                     {
                       this.state.groups.map(group => 
