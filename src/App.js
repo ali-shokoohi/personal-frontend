@@ -71,10 +71,10 @@ class App extends React.Component {
             })
           });
       });
-      API.get('user')
+      API.get('user/1')
       .then(result => {
           this.setState({
-              user: result.data[0]
+              user: result.data
           })
       });
       this.setState({

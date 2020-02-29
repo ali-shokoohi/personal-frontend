@@ -21,9 +21,9 @@ class About extends React.Component{
                 lines: user.about.split('\n')
             })
         } else {
-            API.get('user')
+            API.get('user/1')
             .then(result => {
-                user = result.data[0]
+                user = result.data
                 this.setState({
                     lines: user.about.split('\n')
                 })
