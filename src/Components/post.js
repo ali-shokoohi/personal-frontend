@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Avatar, Card, Icon } from 'antd';
+import { Typography, Avatar, Card, Icon, Tooltip } from 'antd';
 import frans from 'franc';
 
 const { Paragraph, Text, Title } = Typography;
@@ -40,11 +40,25 @@ class Post extends React.Component{
                                             || frans(word, {minLength: 2}) === 'pbu'
                                             || frans(word, {minLength: 2}) === 'uig' ?
                                                 <span>
-                                                    {word}&nbsp;
+                                                    {word.startsWith("http") ?
+                                                    <Tooltip title="Open">
+                                                        <a href={word} target="_blank" rel="noopener noreferrer">
+                                                            {word}
+                                                        </a>
+                                                    </Tooltip> : 
+                                                    word}
+                                                    &nbsp;
                                                 </span>
                                             :
                                                 <span dir='ltr'>
-                                                    &nbsp;{word}
+                                                    &nbsp;
+                                                    {word.startsWith("http") ?
+                                                    <Tooltip title="Open">
+                                                        <a href={word} target="_blank" rel="noopener noreferrer">
+                                                            {word}
+                                                        </a>
+                                                    </Tooltip> : 
+                                                    word}
                                                 </span>
                                         )
                                     }
@@ -64,11 +78,25 @@ class Post extends React.Component{
                                             || frans(word, {minLength: 2}) === 'pbu'
                                             || frans(word, {minLength: 2}) === 'uig' ?
                                                 <span dir='rtl'>
-                                                    {word}&nbsp;
+                                                    {word.startsWith("http") ?
+                                                    <Tooltip title="Open">
+                                                        <a href={word} target="_blank" rel="noopener noreferrer">
+                                                            {word}
+                                                        </a>
+                                                    </Tooltip> : 
+                                                    word}
+                                                    &nbsp;
                                                 </span>
                                             :
                                                 <span dir='ltr'>
-                                                    &nbsp;{word}
+                                                    &nbsp;
+                                                    {word.startsWith("http") ?
+                                                    <Tooltip title="Open">
+                                                        <a href={word} target="_blank" rel="noopener noreferrer">
+                                                            {word}
+                                                        </a>
+                                                    </Tooltip> : 
+                                                    word}
                                                 </span>
                                         )
                                     }
