@@ -40,13 +40,7 @@ class Post extends React.Component{
                                             || frans(word, {minLength: 2}) === 'pbu'
                                             || frans(word, {minLength: 2}) === 'uig' ?
                                                 <span>
-                                                    {word.startsWith("http") ?
-                                                    <Tooltip title="Open">
-                                                        <a href={word} target="_blank" rel="noopener noreferrer">
-                                                            {word}
-                                                        </a>
-                                                    </Tooltip> : 
-                                                    word}
+                                                    {word}
                                                     &nbsp;
                                                 </span>
                                             :
@@ -78,13 +72,7 @@ class Post extends React.Component{
                                             || frans(word, {minLength: 2}) === 'pbu'
                                             || frans(word, {minLength: 2}) === 'uig' ?
                                                 <span dir='rtl'>
-                                                    {word.startsWith("http") ?
-                                                    <Tooltip title="Open">
-                                                        <a href={word} target="_blank" rel="noopener noreferrer">
-                                                            {word}
-                                                        </a>
-                                                    </Tooltip> : 
-                                                    word}
+                                                    {word}
                                                     &nbsp;
                                                 </span>
                                             :
