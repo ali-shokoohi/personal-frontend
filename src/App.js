@@ -1,10 +1,11 @@
 import React from 'react';
-import { Row, Col, Menu, Icon, Spin, Typography } from 'antd';
+import { Button, Row, Col, Menu, Icon, Spin, Typography, Result } from 'antd';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useParams,
 } from "react-router-dom";
 import Header from './Components/header';
 import Post from './Components/post';
@@ -37,10 +38,34 @@ const routes = [
   }
 ];
 
+const PostId = props => {
+  const { id } = useParams();
+  const {group} = props;
+  console.log(group.Posts);
+  const fetch = group.Posts.filter(post => post.id.toString() === id);
+  return fetch.length > 0
+  ?
+    <Post post={fetch[0]} />
+  :
+    <Result
+      status={404}
+      title="۴۰۴"
+      subTitle="متاسفانه صفحه مورد نظر شما ساخته یا پیدا نشده است."
+      extra={
+        <Link to='/'>
+          <Button type="primary">
+            بازگشت به خانه
+          </Button>
+        </Link>
+      }
+    />;
+}
+
 class App extends React.Component {
   constructor(props){
       super(props);
       this.state = {
+          postId: 0,
           spinning: true,
           current: 'home',
           categories: [],
@@ -162,6 +187,13 @@ class App extends React.Component {
                               <Post post={post} />
                             )
                           }
+                        </Route>
+                      )
+                    }
+                    {
+                      this.state.groups.map(group =>
+                        <Route path={`/learning/${group.name}/:id`}>
+                          <PostId group={group} />
                         </Route>
                       )
                     }
