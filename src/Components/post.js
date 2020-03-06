@@ -72,12 +72,11 @@ class Post extends React.Component{
                                             || frans(word, {minLength: 2}) === 'pbu'
                                             || frans(word, {minLength: 2}) === 'uig' ?
                                                 <span dir='rtl'>
-                                                    {word}
                                                     &nbsp;
+                                                    {word}
                                                 </span>
                                             :
                                                 <span dir='ltr'>
-                                                    &nbsp;
                                                     {word.startsWith("http") ?
                                                     <Tooltip title="Open">
                                                         <a href={word} target="_blank" rel="noopener noreferrer">
@@ -85,6 +84,7 @@ class Post extends React.Component{
                                                         </a>
                                                     </Tooltip> : 
                                                     word}
+                                                    &nbsp;
                                                 </span>
                                         )
                                     }
