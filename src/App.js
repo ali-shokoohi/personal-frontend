@@ -45,7 +45,7 @@ const PostId = props => {
   const fetch = group.Posts.filter(post => post.id.toString() === id);
   return fetch.length > 0
   ?
-    <Post post={fetch[0]} />
+    <Post post={fetch[0]} showComments={true} />
   :
     <Result
       status={404}

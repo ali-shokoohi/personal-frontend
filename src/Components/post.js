@@ -1,10 +1,46 @@
 import React from 'react';
-import { Typography, Avatar, Card, Icon, Tooltip } from 'antd';
+import {
+    Typography,
+    Avatar,
+    Card,
+    Icon,
+    Tooltip,
+    Comment,
+    Form,
+    Button,
+    List,
+    Input,
+    message,
+    } from 'antd';
 import frans from 'franc';
 
 const { Paragraph, Text, Title } = Typography;
 
 const { Meta } = Card;
+
+const { TextArea } = Input;
+
+const CommentList = ({ comments }) => (
+    <List
+        dataSource={comments}
+        header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+        itemLayout="horizontal"
+        renderItem={props => <Comment {...props} />}
+  />
+);
+
+const Editor = ({ onChange, onSubmit, submitting, value }) => (
+    <div>
+      <Form.Item>
+        <TextArea rows={4} onChange={onChange} value={value} />
+      </Form.Item>
+      <Form.Item>
+        <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
+          ارسال نظر
+        </Button>
+      </Form.Item>
+    </div>
+  );
 
 class Post extends React.Component{
     constructor(props){
@@ -13,6 +49,10 @@ class Post extends React.Component{
             isLiked: false,
             isDisliked: false,
             isCommented: false,
+            showComments: false,
+            ubmitting: false,
+            value: '',
+            comments: [],
             likes_count: 0,
             dislikes_count: 0,
             comments_count: 0,
@@ -126,19 +166,37 @@ class Post extends React.Component{
             })
     }
     commentHandler = () => {
+        if (!this.state.value) {
+            return;
+        }
+      
         this.setState({
-            isCommented: true,
-            comments_count: this.state.comments_count+1,
+            submitting: true,
+          });
+        setTimeout(() => {
+            this.setState({
+                submitting: false,
+                value: '',
+            })
+            message.success("نظر شما ارسال شد");
+        }, 1000)
+    }
+    handleChange = e => {
+        this.setState({
+          value: e.target.value,
+        });
+    }
+
+    componentDidMount(){
+        this.setState({
+            showComments: this.props.showComments || false,
         })
     }
-    componentDidMount(){
-        console.log(frans('منبع:', {minLength: 2}));
-    }
     render(){
-        const {isLiked, isDisliked, isCommented, likes_count, dislikes_count, comments_count} = this.state;
+        const {isLiked, isDisliked, isCommented, likes_count, dislikes_count, comments_count, comments, submitting, value } = this.state;
         const post = this.props.post;
         return (
-            <div>
+            <div style={{marginTop: 25, marginBottom: 25}} >
                 <Card
                     title={
                         <Title level={4}>
@@ -153,7 +211,7 @@ class Post extends React.Component{
                             <Icon type="dislike" theme={isDisliked ? 'filled' : 'outlined'}/>
                             {dislikes_count>0 && (<span>{dislikes_count}</span>)}
                         </div>,
-                        <div onClick={this.commentHandler} >
+                        <div onClick={() => {this.setState({showComments: !this.state.showComments})}} >
                             <Icon type="message" theme={isCommented ? 'filled' : 'outlined'} />
                             {comments_count>0 && (<span>{comments_count}</span>)}
                         </div>,
@@ -162,13 +220,34 @@ class Post extends React.Component{
                             {likes_count>0 && (<span>{likes_count}</span>)}
                         </div>,
                     ]}
-                    style={{marginTop: 25, marginBottom: 25}}
                 >
                 <Meta
                     avatar={<Avatar src="https://shokoohi.dev/wp-content/uploads/2020/02/ali-shokoohi-avatar.jpg" />}
                     description={this.paragraph}
                 />
                 </Card>
+                {
+                    this.state.showComments &&
+                        <Card style={{backgroundColor: '#f8f9fa'}}>
+                            <Comment
+                                avatar={
+                                    <Avatar
+                                        icon={<Icon type="user" />}
+                                        src="Author"
+                                    />
+                                }
+                                content={
+                                    <Editor
+                                        onChange={this.handleChange}
+                                        onSubmit={this.commentHandler}
+                                        submitting={submitting}
+                                        value={value}
+                                    />
+                                }
+                            />
+                            {comments.length > 0 && <CommentList comments={comments} />}
+                        </Card>
+                }
             </div>
             
         )
