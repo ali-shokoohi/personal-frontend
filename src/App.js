@@ -48,7 +48,7 @@ const PostId = props => {
     <Post post={fetch[0]} showComments={true} />
   :
     <Result
-      status={404}
+      status="404"
       title="۴۰۴"
       subTitle="متاسفانه صفحه مورد نظر شما ساخته یا پیدا نشده است."
       extra={
