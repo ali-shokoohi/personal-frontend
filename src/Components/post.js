@@ -12,7 +12,6 @@ import {
     Input,
     message,
     } from 'antd';
-import frans from 'franc';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -61,75 +60,22 @@ class Post extends React.Component{
 
     paragraph = <Paragraph>
                     {this.props.post.content.split('\n').map(line => 
-                        frans(line, {minLength: 2}) === 'fas' 
-                        || frans(line, {minLength: 2}) === 'arb'
-                        || frans(line, {minLength: 2}) === 'urd'
-                        || frans(line, {minLength: 2}) === 'zlm'
-                        || frans(line, {minLength: 2}) === 'skr'
-                        || frans(line, {minLength: 2}) === 'pbu'
-                        || frans(line, {minLength: 2}) === 'uig' ?
-                            <div>
+                            <div dir="auto">
                                 <Text>
                                     {
                                         line.split(' ').map(word =>
-                                            frans(word, {minLength: 2}) === 'fas' 
-                                            || frans(word, {minLength: 2}) === 'arb'
-                                            || frans(word, {minLength: 2}) === 'urd'
-                                            || frans(word, {minLength: 2}) === 'zlm'
-                                            || frans(word, {minLength: 2}) === 'skr'
-                                            || frans(word, {minLength: 2}) === 'pbu'
-                                            || frans(word, {minLength: 2}) === 'uig' ?
-                                                <span>
-                                                    {word}
-                                                    &nbsp;
-                                                </span>
-                                            :
-                                                <span dir='ltr'>
-                                                    &nbsp;
-                                                    {word.startsWith("http") ?
+                                                [<span dir="auto">
+                                                    {word.startsWith("http://") || word.startsWith("https://") ?
                                                     <Tooltip title="Open">
                                                         <a href={word} target="_blank" rel="noopener noreferrer">
                                                             {word}
                                                         </a>
                                                     </Tooltip> : 
                                                     word}
-                                                </span>
+                                                </span>, ' ']
                                         )
                                     }
                                 </Text>
-                                <br />
-                            </div>
-                        :
-                            <div dir='ltr'>
-                                <Text>
-                                    {
-                                        line.split(' ').map(word =>
-                                            frans(word, {minLength: 2}) === 'fas' 
-                                            || frans(word, {minLength: 2}) === 'arb'
-                                            || frans(word, {minLength: 2}) === 'urd'
-                                            || frans(word, {minLength: 2}) === 'zlm'
-                                            || frans(word, {minLength: 2}) === 'skr'
-                                            || frans(word, {minLength: 2}) === 'pbu'
-                                            || frans(word, {minLength: 2}) === 'uig' ?
-                                                <span dir='rtl'>
-                                                    &nbsp;
-                                                    {word}
-                                                </span>
-                                            :
-                                                <span dir='ltr'>
-                                                    {word.startsWith("http") ?
-                                                    <Tooltip title="Open">
-                                                        <a href={word} target="_blank" rel="noopener noreferrer">
-                                                            {word}
-                                                        </a>
-                                                    </Tooltip> : 
-                                                    word}
-                                                    &nbsp;
-                                                </span>
-                                        )
-                                    }
-                                </Text>
-                                <br />
                             </div>
                     )}
                 </Paragraph>;
